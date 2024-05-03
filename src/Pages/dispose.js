@@ -107,7 +107,7 @@ const WasteDisposalForm = () => {
     <div style={styles.body}>
       <div style={styles.formContainer}>
         <h2>Waste Disposal Form</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
          
          
           <div style={styles.formGroup}>
@@ -144,7 +144,7 @@ const WasteDisposalForm = () => {
             </select>
           </div>
           <div style={styles.formGroup}>
-          <button type="button" class="btn btn-success">submit</button>
+          <button style={{marginLeft:'10px'}}   type="button" className="btn btn-success" onClick={handleSubmit}>submit</button>
           </div>
         </form>
       </div>

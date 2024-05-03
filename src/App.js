@@ -7,6 +7,7 @@ import About from './Pages/about';
 import News from './Pages/news';
 import Eshop from './Pages/eshop';
 import WasteDisposalForm from './Pages/dispose'; // Ensure that the path is correct
+import LoginSignup from "./Pages/login-signup";
 
 function App(){
   return(
@@ -19,6 +20,7 @@ function App(){
       <Route path="/news" element={<News/>}></Route>
       <Route path="/eshop" element={<Eshop/>}></Route>
       <Route path="/disposal" element={<WasteDisposalForm/>}></Route>
+      <Route path="/loginSignup" element={<LoginSignup/>}></Route>
       </Routes>
       </BrowserRouter>
      

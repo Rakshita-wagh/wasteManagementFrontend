@@ -1,0 +1,48 @@
+.form-container {
+  width: 30%;
+  margin: 50px;
+  margin-left: 35%;
+  height: 90%;
+  padding: 20px;
+  border: 1px solid #4CAF50;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
+.input-container {
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+button {
+  width: 30%;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 35%;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  text-align: center;
+  cursor: pointer;
+  color: #007bff; /* Blue color for the toggle text */
+}
+
+p:hover {
+  text-decoration: underline;
+}

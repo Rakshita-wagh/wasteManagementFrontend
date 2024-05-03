@@ -1,5 +1,7 @@
 import React from 'react';
 import main from '../images/mm.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 const styles = {
   
@@ -44,6 +46,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   emailInput: {
     width: '300px',
     padding: '10px',
@@ -51,6 +54,7 @@ const styles = {
     borderRadius: '5px 0 0 5px',
     outline: 'none',
   },
+
   submitButton: {
     backgroundColor: '#1a1a2e',
     color: 'white',
@@ -71,6 +75,7 @@ const styles = {
     width: '680px',
     height: 'auto',
     marginTop: '50px',
+    marginLeft: '180px',
   },
   heading: {
     color: 'green',
@@ -78,7 +83,6 @@ const styles = {
     top: '40%',
     left: '20px',
     transform: 'translate(0, -50%)',
-    fontSize: '25px',
   },
   content: {
     color: 'white',
@@ -88,6 +92,13 @@ const styles = {
     transform: 'translate(0, -50%)',
     fontSize: '24px',
   },
+
+  signupLogin: {
+    position: 'absolute',
+    top: '10%',
+    right: '50px',
+    transform: 'translate(0, -50%)',
+  },
 };
 
 function Home() {
@@ -95,10 +106,15 @@ function Home() {
     <div style={styles.body}>
       <div style={styles.upperSection}>
         <div style={styles.heading}>
-          <h2>Embrace Sustainable Living</h2>
+          <h1 style={{fontSize :'70px',fontFamily:'sans-serif'}}><b>Embrace <br/> Sustainable Living!</b></h1><br/><br/><br/><br/>
         </div>
         <div style={styles.content}>
-          <p>Effortless waste management solutions at your fingertips.</p>
+          <h3><i>"Effortless waste management solutions at your fingertips."</i></h3>
+        </div>
+        <div style={styles.signupLogin}>
+          <Link to='/loginSignup'>
+          <button style={{width: '100%',marginRight:'20px', marginTop:'-5px',paddingRight:'10px'}} className='btn btn-success' >Login</button>
+          </Link>
         </div>
         <img
           src={main}
@@ -109,12 +125,7 @@ function Home() {
 
       <section id="contact" style={styles.contactSection}>
         <h2>Sign Up to Save Mother Earth</h2>
-        <div style={styles.signupForm}>
-          <input type="email" style={styles.emailInput} placeholder="Enter your email" />
-          <button type="submit" style={styles.submitButton}>
-            Sign Up
-          </button>
-        </div>
+        
       </section>
     </div>
   );
