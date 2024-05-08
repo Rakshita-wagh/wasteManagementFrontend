@@ -1,0 +1,73 @@
+body{
+    background-color: black;
+}
+
+
+.images{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .events{
+    height: 380px;
+    width: 100%;
+   
+  }
+ 
+  
+  .image-container {
+    position: relative;
+  }
+
+  .first{
+    height: 300px;
+    width: 100%;
+    background-color: #555;
+  }
+  .box1 {
+    height: 500px;
+    width: 400px;
+    padding-top: 0px;
+    text-align: center;
+    margin-top: 100px; 
+    margin-left: 65px;
+    font-weight: 400;
+    font-size: 30px;
+    border-radius: 20px;
+    border: 10px solid none;
+    box-shadow: 0 0 10px grey;
+    flex-wrap: wrap;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; 
+  }
+  
+  .box1:hover {
+    transform: translateZ(100%); 
+    box-shadow: 0px 0px 10px 10px green;
+  }
+ 
+
+.all{
+    display: flex;
+    flex-wrap: wrap; 
+    padding-bottom: 100px;
+    margin-left: 25px;
+}
+
+
+
+.form{
+  margin-left: 27%;
+}
+
+.cardtitle{
+  margin-top: 50px;
+  font-family: "Roboto", Fantasy;
+  font-size: 25px;
+  color: aliceblue;
+
+}
+
+.button{
+  margin: 80px 46% 80px;
+}

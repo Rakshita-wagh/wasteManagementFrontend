@@ -17,13 +17,13 @@ const LoginSignup = () => {
       {isLogin ? (
         <div className="login">
           <h2>Login</h2>
-          <div className="input-container">
+          <div className="input-container1">
             <img src={user_icon} alt="user icon" />
-            <input type="text" placeholder="Username" />
+            <input type="text" className="field" placeholder="Username" />
           </div>
-          <div className="input-container">
+          <div className="input-container1">
             <img src={pass_icon} alt="password icon" />
-            <input type="password" placeholder="Password" />
+            <input type="password" className="field"  placeholder="Password" />
           </div>
           <button>Login</button>
           <p onClick={handleToggle}>Don't have an account? Sign Up</p>
@@ -31,17 +31,17 @@ const LoginSignup = () => {
       ) : (
         <div className="signup">
           <h2>Signup</h2>
-          <div className="input-container">
+          <div className="input-container1">
             <img src={user_icon} alt="user icon" />
-            <input type="text" placeholder="Username" />
+            <input type="text" className="field" placeholder="Username" />
           </div>
-          <div className="input-container">
+          <div className="input-container1">
             <img src={email_icon} alt="email icon" />
-            <input type="text" placeholder="Email" />
+            <input type="text" className="field"  placeholder="Email" />
           </div>
-          <div className="input-container">
+          <div className="input-container1">
             <img src={pass_icon} alt="password icon" />
-            <input type="password" placeholder="Password" />
+            <input type="password" className="field"  placeholder="Password" />
           </div>
           <button>Signup</button>
           <p onClick={handleToggle}>Already have an account? Login</p>
