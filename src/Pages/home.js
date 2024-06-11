@@ -2,8 +2,8 @@ import React from 'react';
 import main from '../images/mm.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import Gif from '../images/3D_Earth_Rotation.mp4';
-import earth from '../images/Designer (6).png';
+// import Gif from '../images/3D_Earth_Rotation.mp4';
+// import earth from '../images/Designer (6).png';
 const styles = {
   body: {
     fontFamily: 'Times New Roman, Times, serif',

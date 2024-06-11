@@ -1,5 +1,4 @@
 import './main.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -16,10 +15,10 @@ function Main () {
   };
 
   const navigate = useNavigate();
-  const Sell = () => navigate('/productSell');
-  const Buy = () => navigate('/loginSignup');
+  const Sell = () => navigate('/loginSignup?redirect=sell');
+const Buy = () => navigate('/loginSignup?redirect=buy');
   const Dispose = () => navigate('/disposal');
-
+  
   
 
   

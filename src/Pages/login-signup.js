@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import './login-signup.css';
 import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import user_icon from '../images/Assets/person.png';
 import pass_icon from '../images/Assets/password.png';  
 import email_icon from '../images/Assets/email.png';
-
 
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
   };
-
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -38,35 +39,35 @@ const LoginSignup = () => {
         email,
         password
       });
-      alert('Data saved successfully!');
-      // Clear input fields after successful submission
+      alert('Sign up successful! Please login.');
       setName('');
       setEmail('');
       setPassword('');
+      setIsLogin(true); // Switch to login after signup
     } catch (error) {
       console.error('Error saving data:', error);
-      alert('Error saving data. Please try again.');
+      alert('Error signing up. Please try again.');
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // const response = 
       await axios.post('http://localhost:8081/api/login', {
         name,
         password
       });
-      // Assuming response contains a token upon successful login
-      //const token = response.data.token;
-      // You can handle token storage or redirection here
-      alert('Login successful!');
-    } catch (error) {
+      const redirect = new URLSearchParams(location.search).get('redirect');
+
+      if (redirect === 'sell') {
+        navigate('/sell');
+      } else if (redirect === 'buy') {
+        navigate('/eshop');
+      }}catch (error) {
       console.error('Login failed:', error.message);
       alert('Login failed. Please check your credentials and try again.');
     }
   };
-
 
   return (
     <div className="form-container">

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Nav from './Pages/nav'; // Ensure that the path is correct
+// import Nav from './Pages/nav'; // Ensure that the path is correct
 import Home from './Pages/home';
 import About from './Pages/about';
 import News from './Pages/news';
@@ -10,6 +10,8 @@ import ProductSell from './Pages/productSell';
 import Main from './Pages/main';
 import WasteDisposalForm from './Pages/dispose'; // Ensure that the path is correct
 import LoginSignup from "./Pages/login-signup";
+import Sell from "./Pages/productSell";
+import Cart from "./Pages/cart";
 
 function App(){
   return(
@@ -24,6 +26,11 @@ function App(){
       <Route path="/disposal" element={<WasteDisposalForm/>}></Route>
       <Route path="/loginSignup" element={<LoginSignup/>}></Route>
       <Route path="/main" element={<Main/>}></Route>
+      <Route path="/eshop" element={<Eshop/>}></Route>
+      <Route path="/sell" element={<Sell/>}></Route>
+      <Route path="/cart" element={<Cart/>}></Route>
+
+
       </Routes>
       </BrowserRouter>
      

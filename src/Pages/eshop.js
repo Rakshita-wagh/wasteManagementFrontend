@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Basket from '../images/cart.jpeg';
 
 const Eshop = () => {
     const [products, setProducts] = useState([]);
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [newProduct, setNewProduct] = useState({
-        name: '',
-        price: '',
-        quantity: '',
-        image: null
-    });
+    const [cart, setCart] = useState({});
+    const [isCartOpen, setIsCartOpen] = useState(false); // State to track whether the cart is open or closed
 
     useEffect(() => {
         // Fetch products from the backend when the component mounts
@@ -33,75 +29,65 @@ const Eshop = () => {
         }
     };
 
-    const handleAddProduct = async (e) => {
-        e.preventDefault();
-        try {
-            const formData = new FormData();
-            formData.append('name', newProduct.name);
-            formData.append('price', newProduct.price);
-            formData.append('quantity', newProduct.quantity);
-            formData.append('image', newProduct.image);
-    
-            // Make a POST request to add the new product
-            const response = await axios.post('http://localhost:8081/api/products/post', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-    
-            // Update the products state with the newly added product
-            setProducts([...products, response.data]);
-    
-            // Reset form fields and close the add product form
-            setNewProduct({ name: '', price: '', quantity: '', image: null });
-            setShowAddForm(false);
-        } catch (error) {
-            console.error('Error adding product:', error);
+    const addToCart = (product) => {
+        const updatedCart = { ...cart };
+        if (updatedCart[product.id]) {
+            updatedCart[product.id].quantity++;
+        } else {
+            updatedCart[product.id] = { ...product, quantity: 1 };
         }
+        setCart(updatedCart);
+        // Decrement product quantity
+        const updatedProducts = products.map(p => {
+            if (p.id === product.id) {
+                return { ...p, quantity: p.quantity - 1 };
+            }
+            return p;
+        });
+        setProducts(updatedProducts);
     };
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        setNewProduct({ ...newProduct, image: file });
+    const toggleCart = () => {
+        setIsCartOpen(!isCartOpen);
+    };
+
+    const renderCart = () => {
+        return Object.keys(cart).map(productId => (
+            <div key={productId}>
+                <h3>{cart[productId].name}</h3>
+                <p>Quantity: {cart[productId].quantity}</p>
+            </div>
+        ));
     };
 
     return (
         <div>
-            <header>
+            <header style={styles.header}>
                 <h1>Welcome to E Shop</h1>
+                {/* Cart button with basket logo */}
+                <img src={Basket} alt="Cart" style={styles.cartLogo} onClick={toggleCart} />
             </header>
-            <div>
-                {/* Render existing products */}
-                <div style={styles.container}>
-                    {products.map(product => (
-                        <div key={product.id} style={styles.product}>
-                            <img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} style={styles.img} />
-                            <h2>{product.name}</h2>
-                            <p>{product.price}</p>
-                            {/* <p>{product.inStock ? `Available Quantity: ${product.quantity}` : <span style={styles.outOfStock}>Out of Stock</span>}</p> */}
-                            <p>{product.quantity}</p>
-                            <button>Add to Cart</button>
-                        </div>
-                    ))}
-                </div>
+            {/* Render existing products */}
+            <div style={styles.container}>
+                {products.map(product => (
+                    <div key={product.id} style={styles.product}>
+                        <img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} style={styles.img} />
+                        <h2>{product.name}</h2>
+                        <p>Price: {product.price}</p>
+                        <p>Quantity: {product.quantity}</p>
+                        {product.quantity > 0 ? (
+                            <button style={styles.addButton} onClick={() => addToCart(product)}>Add to Cart</button>
+                        ) : (
+                            <p style={styles.outOfStock}>Out of Stock</p>
+                        )}
+                    </div>
+                ))}
             </div>
-
-            {/* Button to show form for adding a product */}
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <button style={styles.addButton} onClick={() => setShowAddForm(!showAddForm)}>Add Product</button>
-            </div>
-
-            {/* Form for adding a product */}
-            {showAddForm && (
-                <div>
-                    <form onSubmit={handleAddProduct} style={styles.form}>
-                        <input type="text" placeholder="Name" value={newProduct.name} onChange={e => setNewProduct({ ...newProduct, name: e.target.value })} />
-                        <input type="text" placeholder="Price" value={newProduct.price} onChange={e => setNewProduct({ ...newProduct, price: e.target.value })} />
-                        <input type="text" placeholder="Quantity" value={newProduct.quantity} onChange={e => setNewProduct({ ...newProduct, quantity: e.target.value })} />
-                        <input type="file" accept="image/*" onChange={handleImageUpload} />
-                        <button type="submit" style={styles.submitButton}>Add</button>
-                        <button type="button" onClick={() => setShowAddForm(false)} style={styles.cancelButton}>Cancel</button>
-                    </form>
+            {/* Cart */}
+            {isCartOpen && (
+                <div style={{ float: 'right', width: '30%', marginRight: '20px' }}>
+                    <h2>Cart</h2>
+                    {renderCart()}
                 </div>
             )}
         </div>
@@ -109,39 +95,52 @@ const Eshop = () => {
 };
 
 const styles = {
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '20px',
+        borderBottom: '1px solid #ccc',
+    },
+    cartLogo: {
+        width: '30px',
+        height: '30px',
+        cursor: 'pointer',
+    },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        alignItems: 'flex-start', // Align items at the start of the cross axis
+        alignItems: 'flex-start',
         padding: '20px',
     },
     product: {
         border: '1px solid #ccc',
         padding: '10px',
         margin: '10px',
-        width: 'calc(30% - 20px)', // Adjusted width to fit three products in one row with margin
+        width: 'calc(25% - 20px)', // Adjusted width to fit four products in one row with margin
         textAlign: 'center',
+        boxSizing: 'border-box',
     },
     img: {
-        width: '100%',
-        height: 'auto',
-        maxHeight: '200px', // Set a maximum height for the images
+        width: '100%', // Full width of the container
+        height: '300px', // Increased height for better display
         objectFit: 'cover', // Ensure the image covers the container while maintaining aspect ratio
     },
     outOfStock: {
         color: 'red',
+        fontWeight: 'bold',
     },
     addButton: {
         backgroundColor: '#4CAF50',
         border: 'none',
         color: 'white',
-        padding: '15px 32px',
+        padding: '10px 20px', // Adjusted padding
         textAlign: 'center',
         textDecoration: 'none',
         display: 'inline-block',
         fontSize: '16px',
-        margin: '4px 2px',
+        margin: '10px 0', // Adjusted margin
         cursor: 'pointer',
         borderRadius: '8px',
     },
@@ -153,12 +152,12 @@ const styles = {
         backgroundColor: '#4CAF50',
         border: 'none',
         color: 'white',
-        padding: '15px 32px',
+        padding: '10px 20px',
         textAlign: 'center',
         textDecoration: 'none',
         display: 'inline-block',
         fontSize: '16px',
-        margin: '4px 2px',
+        margin: '10px 0',
         cursor: 'pointer',
         borderRadius: '8px',
     },
@@ -166,16 +165,15 @@ const styles = {
         backgroundColor: '#f44336',
         border: 'none',
         color: 'white',
-        padding: '15px 32px',
+        padding: '10px 20px',
         textAlign: 'center',
         textDecoration: 'none',
         display: 'inline-block',
         fontSize: '16px',
-        margin: '4px 2px',
+        margin: '10px 0',
         cursor: 'pointer',
         borderRadius: '8px',
     }
 };
-
 
 export default Eshop;
