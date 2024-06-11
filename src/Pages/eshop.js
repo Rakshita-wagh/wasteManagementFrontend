@@ -85,7 +85,7 @@ const Eshop = () => {
             </div>
             {/* Cart */}
             {isCartOpen && (
-                <div style={{ float: 'right', width: '30%', marginRight: '20px' }}>
+                <div style={{ float: 'right', width: '30%', marginRight: '20px' ,color: 'white'}}>
                     <h2>Cart</h2>
                     {renderCart()}
                 </div>
@@ -101,6 +101,7 @@ const styles = {
         alignItems: 'center',
         padding: '20px',
         borderBottom: '1px solid #ccc',
+        color: 'white',
     },
     cartLogo: {
         width: '30px',
@@ -113,6 +114,7 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'flex-start',
         padding: '20px',
+        color: 'white',
     },
     product: {
         border: '1px solid #ccc',
@@ -121,6 +123,7 @@ const styles = {
         width: 'calc(25% - 20px)', // Adjusted width to fit four products in one row with margin
         textAlign: 'center',
         boxSizing: 'border-box',
+        color: 'white',
     },
     img: {
         width: '100%', // Full width of the container
