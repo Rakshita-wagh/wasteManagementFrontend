@@ -104,8 +104,8 @@ const styles = {
         color: 'white',
     },
     cartLogo: {
-        width: '30px',
-        height: '30px',
+        width: '80px',
+        height: '80px',
         cursor: 'pointer',
     },
     container: {
