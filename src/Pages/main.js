@@ -33,14 +33,17 @@ const Buy = () => navigate('/loginSignup?redirect=buy');
                <div className="box1" onClick={Sell}>
                  <img src={sell} alt="Description" className="events" />
                  <h5 className="cardtitle">Sell</h5>
+                 <p className="ptitle">You can sell your products here.</p>
                 </div>
                 <div className="box1" onClick={Buy}>
                  <img src={buy} alt="Description" className="events" />
                  <h5 className="cardtitle">Buy</h5>
+                 <p className="ptitle">You can buy the recycled products here.</p>
                 </div>
                 <div className="box1" onClick={Dispose}>
                  <img src={dustbin} alt="Description" className="events" />
                  <h5 className="cardtitle">Dispose</h5>
+                 <p className="ptitle">You can dispose your waste here. </p>
                 </div>
             </div>
        

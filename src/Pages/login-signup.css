@@ -44,12 +44,12 @@ button:hover {
   transform: scale(1.1); /* Increasing size by 10% when hovering */
 }
 
-p {
+h6 {
   text-align: center;
   cursor: pointer;
   color: #007bff; /* Blue color for the toggle text */
 }
 
-p:hover {
+h6:hover {
   text-decoration: underline;
 }

@@ -13,7 +13,12 @@ body{
     width: 100%;
    
   }
- 
+ .ptitle{
+  font-size: 20px;
+  font-style: italic;
+  color: green;
+  text-decoration: none;
+ }
   
   .image-container {
     position: relative;
@@ -25,7 +30,7 @@ body{
     background-color: #555;
   }
   .box1 {
-    height: 500px;
+    height: 525px;
     width: 400px;
     padding-top: 0px;
     text-align: center;

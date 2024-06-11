@@ -83,7 +83,7 @@ const LoginSignup = () => {
             <input type="password" className="field"  placeholder="Password" value={password} onChange={handlePasswordChange} />
           </div>
           <button onClick={handleLogin}>Login</button>
-          <p onClick={handleToggle}>Don't have an account? Sign Up</p>
+          <h6 onClick={handleToggle}>Don't have an account? Sign Up</h6>
         </div>
       ) : (
         <div className="signup">
@@ -101,7 +101,7 @@ const LoginSignup = () => {
             <input type="password" className="field"  placeholder="Password" value={password} onChange={handlePasswordChange}/>
           </div>
           <button onClick={handleSubmit}>Signup</button>
-          <p onClick={handleToggle}>Already have an account? Login</p>
+          <h6 onClick={handleToggle}>Already have an account? Login</h6>
         </div>
       )}
     </div>
