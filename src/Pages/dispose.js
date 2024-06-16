@@ -1,20 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import disp from '../images/dis.jpg';
-import { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-
 const styles = {
-
- 
-
   body: {
     fontFamily: 'Arial, sans-serif',
     margin: 0,
     padding: 0,
-    backgroundImage: `url(${disp})`, // Use imported image
+    backgroundImage: `url(${disp})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
@@ -31,6 +25,7 @@ const styles = {
   },
   formGroup: {
     marginBottom: '20px',
+    textAlign: 'left',
   },
   formGroupLabel: {
     display: 'block',
@@ -66,6 +61,7 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+    marginTop: '10px',
   },
   formSubmitButtonHover: {
     backgroundColor: '#45a049',
@@ -80,14 +76,43 @@ const WasteDisposalForm = () => {
     wasteType: ''
   });
 
+  const [formErrors, setFormErrors] = useState({
+    name: '',
+    address: '',
+    phoneNumber: ''
+  });
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormErrors({ ...formErrors, [e.target.name]: '' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation for name: must contain at least one letter
+    const nameRegex = /[a-zA-Z]/;
+    if (!nameRegex.test(formData.name)) {
+      setFormErrors({ ...formErrors, name: 'Name must contain at least one letter' });
+      return;
+    }
+
+    // Validation for address: must contain only letters, or a combination of letters and numbers
+    const addressRegex = /^(?!^\d+$)(?!^[^a-zA-Z]*$)[a-zA-Z0-9 ,:;]*$/;
+    if (!addressRegex.test(formData.address)) {
+      setFormErrors({ ...formErrors, address: 'Invalid Address' });
+      return;
+    }
+
+    // Validation for phone number
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formData.phoneNumber)) {
+      setFormErrors({ ...formErrors, phoneNumber: 'Phone number must be exactly 10 digits' });
+      return;
+    }
+
     try {
-      await axios.post('http://localhost:8081/api/waste', formData); // Assuming your backend endpoint is /api/waste
+      await axios.post('http://localhost:8081/api/waste', formData);
       alert('Data saved successfully!');
       setFormData({
         name: '',
@@ -101,50 +126,42 @@ const WasteDisposalForm = () => {
     }
   };
 
-
-
   return (
     <div style={styles.body}>
       <div style={styles.formContainer}>
         <h2>Waste Disposal Form</h2>
-        <form>
-         
-         
+        <form onSubmit={handleSubmit}>
           <div style={styles.formGroup}>
             <label htmlFor="name" style={styles.formGroupLabel}>Name:</label>
-            <input type="text" id="name" name="name" value={formData.name}  style={styles.formInput}
-            onChange={handleChange} required />
+            <input type="text" id="name" name="name" value={formData.name} style={styles.formInput} onChange={handleChange} required />
+            {formErrors.name && <p style={{ color: 'red' }}>{formErrors.name}</p>}
           </div>
-
 
           <div style={styles.formGroup}>
             <label htmlFor="address" style={styles.formGroupLabel}>Address:</label>
-            <input type="text" id="address" name="address" 
-            value={formData.address}  style={styles.formInput} 
-            onChange={handleChange} required />
-           
+            <input type="text" id="address" name="address" value={formData.address} style={styles.formInput} onChange={handleChange} required />
+            {formErrors.address && <p style={{ color: 'red' }}>{formErrors.address}</p>}
           </div>
-         
-         
-         <div style={styles.formGroup}>
-        <label htmlFor="phone" style={styles.formGroupLabel}>Phone Number:</label>
-          <input type="tel" id="phone" name="phoneNumber" value={formData.phoneNumber}  style={styles.formInput} 
-          onChange={handleChange} required />
-        </div>
+
+          <div style={styles.formGroup}>
+            <label htmlFor="phone" style={styles.formGroupLabel}>Phone Number:</label>
+            <input type="tel" id="phone" name="phoneNumber" value={formData.phoneNumber} style={styles.formInput} onChange={handleChange} required />
+            {formErrors.phoneNumber && <p style={{ color: 'red' }}>{formErrors.phoneNumber}</p>}
+          </div>
 
           <div style={styles.formGroup}>
             <label htmlFor="waste-type" style={styles.formGroupLabel}>Type of Waste:</label>
-            <select id="wasteType" name="wasteType" style={styles.formSelect}  value={formData.wasteType} onChange={handleChange} placeholder='Select Waste Type'
-             required>
-              <option value="" > Select Waste Type</option>
-              <option value="glass"> Glass</option>
-              <option value="paper" > Paper</option>
-              <option value="plastic" > Plastic</option>
-              <option value="wooden" > Wooden</option>
+            <select id="wasteType" name="wasteType" style={styles.formSelect} value={formData.wasteType} onChange={handleChange} required>
+              <option value="">Select Waste Type</option>
+              <option value="glass">Glass</option>
+              <option value="paper">Paper</option>
+              <option value="plastic">Plastic</option>
+              <option value="wooden">Wooden</option>
             </select>
           </div>
+
           <div style={styles.formGroup}>
-          <button style={{marginLeft:'10px'}}   type="button" className="btn btn-success" onClick={handleSubmit}>submit</button>
+            <button type="submit" style={styles.formSubmitButton}>Submit</button>
           </div>
         </form>
       </div>
@@ -153,8 +170,3 @@ const WasteDisposalForm = () => {
 }
 
 export default WasteDisposalForm;
-
-
-
-
-
