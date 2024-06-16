@@ -5,7 +5,7 @@ import Basket from '../images/cart.jpeg';
 const Eshop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
-    const [isCartOpen, setIsCartOpen] = useState(false); // State to track whether the cart is open or closed
+    const [isCartHovered, setIsCartHovered] = useState(false); // State to track hover
 
     useEffect(() => {
         // Fetch products from the backend when the component mounts
@@ -47,28 +47,37 @@ const Eshop = () => {
         setProducts(updatedProducts);
     };
 
-    const toggleCart = () => {
-        setIsCartOpen(!isCartOpen);
-    };
-
     const renderCart = () => {
         return Object.keys(cart).map(productId => (
-            <div key={productId}>
-                <h3>{cart[productId].name}</h3>
+            <div key={productId} style={styles.cartItem}>
+                <h3 style={{ marginBottom: '5px' }}>{cart[productId].name}</h3>
                 <p>Quantity: {cart[productId].quantity}</p>
+                <p>Price: ${cart[productId].price * cart[productId].quantity}</p>
             </div>
         ));
     };
 
     return (
-        <div>
+        <div style={styles.container}>
             <header style={styles.header}>
                 <h1>Welcome to E Shop</h1>
                 {/* Cart button with basket logo */}
-                <img src={Basket} alt="Cart" style={styles.cartLogo} onClick={toggleCart} />
+                <div
+                    style={styles.cartContainer}
+                    onMouseEnter={() => setIsCartHovered(true)}
+                    onMouseLeave={() => setIsCartHovered(false)}
+                >
+                    <img src={Basket} alt="Cart" style={styles.cartLogo} />
+                    {isCartHovered && (
+                        <div style={styles.cartDropdown}>
+                            <h2 style={{ color: 'white', marginBottom: '10px' }}>Cart</h2>
+                            {renderCart()}
+                        </div>
+                    )}
+                </div>
             </header>
             {/* Render existing products */}
-            <div style={styles.container}>
+            <div style={styles.productsContainer}>
                 {products.map(product => (
                     <div key={product.id} style={styles.product}>
                         <img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} style={styles.img} />
@@ -83,38 +92,56 @@ const Eshop = () => {
                     </div>
                 ))}
             </div>
-            {/* Cart */}
-            {isCartOpen && (
-                <div style={{ float: 'right', width: '30%', marginRight: '20px' ,color: 'white'}}>
-                    <h2>Cart</h2>
-                    {renderCart()}
-                </div>
-            )}
         </div>
     );
 };
 
 const styles = {
+    container: {
+        position: 'relative',
+        color: 'white',
+    },
     header: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '20px',
         borderBottom: '1px solid #ccc',
-        color: 'white',
+    },
+    cartContainer: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
     },
     cartLogo: {
         width: '80px',
         height: '80px',
         cursor: 'pointer',
     },
-    container: {
+    cartDropdown: {
+        position: 'absolute',
+        top: '100%',
+        right: '0',
+        backgroundColor: 'black',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        borderRadius: '8px',
+        padding: '20px',
+        width: '300px',
+        zIndex: 1001,
+        border: '1px solid #ccc', // Border added here
+    },
+    cartItem: {
+        borderBottom: '1px solid #ccc',
+        padding: '10px 0',
+        color: 'white',
+        fontFamily: 'Arial, sans-serif', // Example font family
+    },
+    productsContainer: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'flex-start',
         padding: '20px',
-        color: 'white',
     },
     product: {
         border: '1px solid #ccc',
@@ -123,7 +150,6 @@ const styles = {
         width: 'calc(25% - 20px)', // Adjusted width to fit four products in one row with margin
         textAlign: 'center',
         boxSizing: 'border-box',
-        color: 'white',
     },
     img: {
         width: '100%', // Full width of the container
@@ -147,36 +173,6 @@ const styles = {
         cursor: 'pointer',
         borderRadius: '8px',
     },
-    form: {
-        textAlign: 'center',
-        marginTop: '20px',
-    },
-    submitButton: {
-        backgroundColor: '#4CAF50',
-        border: 'none',
-        color: 'white',
-        padding: '10px 20px',
-        textAlign: 'center',
-        textDecoration: 'none',
-        display: 'inline-block',
-        fontSize: '16px',
-        margin: '10px 0',
-        cursor: 'pointer',
-        borderRadius: '8px',
-    },
-    cancelButton: {
-        backgroundColor: '#f44336',
-        border: 'none',
-        color: 'white',
-        padding: '10px 20px',
-        textAlign: 'center',
-        textDecoration: 'none',
-        display: 'inline-block',
-        fontSize: '16px',
-        margin: '10px 0',
-        cursor: 'pointer',
-        borderRadius: '8px',
-    }
 };
 
 export default Eshop;
