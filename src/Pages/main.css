@@ -74,5 +74,16 @@ body{
 }
 
 .button{
-  margin: 80px 46% 80px;
+  margin: 30px 46% 30px;
+}
+.admin-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 5px 2px;
+  /* //background-color: #00ff37; */
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
 }

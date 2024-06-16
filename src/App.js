@@ -12,6 +12,7 @@ import WasteDisposalForm from './Pages/dispose'; // Ensure that the path is corr
 import LoginSignup from "./Pages/login-signup";
 import Sell from "./Pages/productSell";
 import Cart from "./Pages/cart";
+import Admin from "./Pages/admin-login";
 
 function App(){
   return(
@@ -29,7 +30,7 @@ function App(){
       <Route path="/eshop" element={<Eshop/>}></Route>
       <Route path="/sell" element={<Sell/>}></Route>
       <Route path="/cart" element={<Cart/>}></Route>
-
+      <Route path="/adminLogin" element={<Admin/>}></Route>
 
       </Routes>
       </BrowserRouter>

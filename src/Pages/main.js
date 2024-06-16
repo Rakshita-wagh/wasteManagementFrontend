@@ -18,8 +18,7 @@ function Main () {
   const Sell = () => navigate('/loginSignup?redirect=sell');
 const Buy = () => navigate('/loginSignup?redirect=buy');
   const Dispose = () => navigate('/disposal');
-  
-  
+  const adminlogin =()=>navigate('/adminLogin');
 
   
   
@@ -47,7 +46,9 @@ const Buy = () => navigate('/loginSignup?redirect=buy');
                 </div>
             </div>
        
-        
+            <button className="admin-button" onClick={adminlogin}>
+          Admin
+        </button>
 
        
         </div>
