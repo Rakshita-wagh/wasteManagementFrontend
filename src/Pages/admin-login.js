@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './login-signup.css';
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import user_icon from '../images/Assets/person.png';
 import pass_icon from '../images/Assets/password.png';  
@@ -10,7 +9,6 @@ const LoginSignup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -22,22 +20,13 @@ const LoginSignup = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:8081/api/login', {
-        name,
-        password
-      });
-      const redirect = new URLSearchParams(location.search).get('redirect');
+    const adminName = 'admin';
+    const adminPassword = 'a1234';
 
-      if (redirect === 'sell') {
-        navigate('/sell');
-      } else if (redirect === 'buy') {
-        navigate('/eshop');
-      }
-    } catch (error) {
-      console.error('Login failed:', error.message);
-      alert('Login failed. Please check your credentials and try again.');
+    if (name === adminName && password === adminPassword) {
+      navigate('/display'); 
     }
+
   };
 
   return (
@@ -50,7 +39,7 @@ const LoginSignup = () => {
         </div>
         <div className="input-container1">
           <img src={pass_icon} alt="password icon" />
-          <input type="password" className="field"  placeholder="Password" value={password} onChange={handlePasswordChange} />
+          <input type="password" className="field" placeholder="Password" value={password} onChange={handlePasswordChange} />
         </div>
         <button onClick={handleLogin}>Login</button>
       </div>

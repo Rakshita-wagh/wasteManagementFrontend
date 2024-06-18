@@ -13,6 +13,7 @@ import LoginSignup from "./Pages/login-signup";
 import Sell from "./Pages/productSell";
 import Cart from "./Pages/cart";
 import Admin from "./Pages/admin-login";
+import Display from "./Pages/display";
 
 function App(){
   return(
@@ -31,6 +32,7 @@ function App(){
       <Route path="/sell" element={<Sell/>}></Route>
       <Route path="/cart" element={<Cart/>}></Route>
       <Route path="/adminLogin" element={<Admin/>}></Route>
+      <Route path="/display" element={<Display/>}></Route>
 
       </Routes>
       </BrowserRouter>
