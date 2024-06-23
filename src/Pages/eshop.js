@@ -5,15 +5,13 @@ import Basket from '../images/cart.jpeg';
 const Eshop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
-    const [isCartHovered, setIsCartHovered] = useState(false); // State to track hover
+    const [isCartHovered, setIsCartHovered] = useState(false);
 
     useEffect(() => {
-        // Fetch products from the backend when the component mounts
         fetchProducts();
     }, []);
 
     useEffect(() => {
-        // Save products to local storage whenever it changes
         localStorage.setItem('products', JSON.stringify(products));
     }, [products]);
 
@@ -21,8 +19,6 @@ const Eshop = () => {
         try {
             const response = await axios.get('http://localhost:8081/api/products');
             setProducts(response.data);
-
-            // Update local storage with fetched products
             localStorage.setItem('products', JSON.stringify(response.data));
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -37,7 +33,7 @@ const Eshop = () => {
             updatedCart[product.id] = { ...product, quantity: 1 };
         }
         setCart(updatedCart);
-        // Decrement product quantity
+
         const updatedProducts = products.map(p => {
             if (p.id === product.id) {
                 return { ...p, quantity: p.quantity - 1 };
@@ -61,7 +57,6 @@ const Eshop = () => {
         <div style={styles.container}>
             <header style={styles.header}>
                 <h1>Welcome to E Shop</h1>
-                {/* Cart button with basket logo */}
                 <div
                     style={styles.cartContainer}
                     onMouseEnter={() => setIsCartHovered(true)}
@@ -76,13 +71,12 @@ const Eshop = () => {
                     )}
                 </div>
             </header>
-            {/* Render existing products */}
             <div style={styles.productsContainer}>
                 {products.map(product => (
                     <div key={product.id} style={styles.product}>
                         <img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} style={styles.img} />
                         <h2>{product.name}</h2>
-                        <p>Price: {product.price}</p>
+                        <p>Price: ${product.price}</p>
                         <p>Quantity: {product.quantity}</p>
                         {product.quantity > 0 ? (
                             <button style={styles.addButton} onClick={() => addToCart(product)}>Add to Cart</button>
@@ -187,4 +181,5 @@ const styles = {
     },
 };
 
-export default Eshop;
+export default Eshop;
+
