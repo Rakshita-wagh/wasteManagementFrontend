@@ -98,15 +98,19 @@ const Eshop = () => {
 
 const styles = {
     container: {
-        position: 'relative',
-        color: 'white',
+        backgroundColor: '#f8f9fa',
+        color: '#343a40',
+        fontFamily: 'Roboto, sans-serif',
+        padding: '20px',
     },
     header: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '20px',
-        borderBottom: '1px solid #ccc',
+        backgroundColor: '#343a40',
+        color: 'white',
+        borderBottom: '2px solid #17a2b8',
     },
     cartContainer: {
         position: 'relative',
@@ -114,64 +118,72 @@ const styles = {
         alignItems: 'center',
     },
     cartLogo: {
-        width: '80px',
-        height: '80px',
+        width: '50px',
+        height: '50px',
         cursor: 'pointer',
     },
     cartDropdown: {
         position: 'absolute',
         top: '100%',
         right: '0',
-        backgroundColor: 'black',
+        backgroundColor: '#ffffff',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         borderRadius: '8px',
         padding: '20px',
         width: '300px',
         zIndex: 1001,
-        border: '1px solid #ccc', // Border added here
+        border: '1px solid #17a2b8',
+        color: '#343a40',
     },
     cartItem: {
-        borderBottom: '1px solid #ccc',
+        borderBottom: '1px solid #17a2b8',
         padding: '10px 0',
-        color: 'white',
-        fontFamily: 'Arial, sans-serif', // Example font family
+        fontFamily: 'Roboto, sans-serif',
     },
     productsContainer: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        alignItems: 'flex-start',
         padding: '20px',
     },
     product: {
-        border: '1px solid #ccc',
-        padding: '10px',
+        border: '1px solid #17a2b8',
+        padding: '20px',
         margin: '10px',
-        width: 'calc(25% - 20px)', // Adjusted width to fit four products in one row with margin
+        width: 'calc(33.33% - 40px)', // Adjusted width to fit three products per row
         textAlign: 'center',
         boxSizing: 'border-box',
+        backgroundColor: '#ffffff',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     },
     img: {
-        width: '100%', // Full width of the container
-        height: '300px', // Increased height for better display
-        objectFit: 'cover', // Ensure the image covers the container while maintaining aspect ratio
+        width: '100%',
+        height: '250px',
+        objectFit: 'cover',
+        borderRadius: '8px',
     },
     outOfStock: {
-        color: 'red',
+        color: '#dc3545',
         fontWeight: 'bold',
     },
     addButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#17a2b8',
         border: 'none',
         color: 'white',
-        padding: '10px 20px', // Adjusted padding
+        padding: '12px 0', // Adjusted padding for full-width button
         textAlign: 'center',
         textDecoration: 'none',
-        display: 'inline-block',
+        display: 'block', // Change to block for full width
         fontSize: '16px',
-        margin: '10px 0', // Adjusted margin
+        margin: '10px 0',
         cursor: 'pointer',
         borderRadius: '8px',
+        transition: 'background-color 0.3s ease',
+        width: '100%', // Full width of the container
+    },
+    addButtonHover: {
+        backgroundColor: '#138496',
     },
 };
 
